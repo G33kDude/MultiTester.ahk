@@ -1,0 +1,3 @@
+[submodule "lib/AutoHotkey-JSON"]
+	path = lib/AutoHotkey-JSON
+	url = https://github.com/cocobelgica/AutoHotkey-JSON
