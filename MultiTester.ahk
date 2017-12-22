@@ -32,6 +32,7 @@ Settings :=
 )
 
 x := new Editor(Settings)
+x.Open("samples\pages.json")
 return
 
 class Editor
