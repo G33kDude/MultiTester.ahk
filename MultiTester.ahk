@@ -118,12 +118,15 @@ class Editor
 		, "AHK": this.Editors.AHK.Value}))
 	}
 	
-	Open()
+	Open(FilePath:="")
 	{
-		Gui, +OwnDialogs
-		FileSelectFile, FilePath, 3,, % this.Title " - Open Code", *.json
-		if ErrorLevel
-			return
+		if (FilePath == "")
+		{
+			Gui, +OwnDialogs
+			FileSelectFile, FilePath, 3,, % this.Title " - Open Code", *.json
+			if ErrorLevel
+				return
+		}
 		
 		Code := Jxon_Load(FileOpen(FilePath, "r").Read())
 		this.Editors.HTML.Value := Code.HTML
