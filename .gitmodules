@@ -1,3 +1,6 @@
 [submodule "lib/AutoHotkey-JSON"]
 	path = lib/AutoHotkey-JSON
 	url = https://github.com/cocobelgica/AutoHotkey-JSON
+[submodule "lib/RichCode.ahk"]
+	path = lib/RichCode.ahk
+	url = https://github.com/G33kDude/RichCode.ahk

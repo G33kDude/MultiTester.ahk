@@ -1,14 +1,35 @@
 ﻿#NoEnv
 SetBatchLines, -1
 
-Settings := {"FGColor": 0xCDEDED
-, "BGColor": 0x3F3F3F
-, "TabSize": 4
-, "Indent": "`t"
-, "TypeFace": "Microsoft Sans Serif"
-, "Font": "s8 wNorm"
-, "CodeTypeFace": "Consolas"
-, "CodeFont": "s9 wBold"}
+; Settings array for the RichCode controls
+Settings :=
+( LTrim Join Comments
+{
+	"TabSize": 4,
+	"Indent": "`t",
+	"FGColor": 0xEDEDCD,
+	"BGColor": 0x3F3F3F,
+	"Font": {"Typeface": "Consolas", "Size": 11},
+	
+	"UseHighlighter": True,
+	"HighlightDelay": 200,
+	"Colors": [
+		; RRGGBB  ;    ; AHK
+		0x7F9F7F, ;  1 ; Comments
+		0x7F9F7F, ;  2 ; Multiline comments
+		0x7CC8CF, ;  3 ; Directives
+		0x97C0EB, ;  4 ; Punctuation
+		0xF79B57, ;  5 ; Numbers
+		0xCC9893, ;  6 ; Strings
+		0xF79B57, ;  7 ; A_Builtins
+		0xE4EDED, ;  8 ; Flow
+		0xCDBFA3, ;  9 ; Commands
+		0x7CC8CF, ; 10 ; Functions
+		0xCB8DD9, ; 11 ; Key names
+		0xE4EDED  ; 12 ; Other keywords
+	]
+}
+)
 
 x := new Editor(Settings)
 return
@@ -37,14 +58,25 @@ class Editor
 		Gui, Menu, % this.Menus[1]
 		Gui, Margin, 5, 5
 		
+		
 		; Add code editors
-		this.Editors := {}
-		Gui, Font, % this.Settings.CodeFont, % this.Settings.CodeTypeFace
-		this.Editors.HTML := new RichEdit(this.Settings.BGColor, this.Settings.FGColor, "<!-- HTML -->", this.Settings.TabSize)
-		this.Editors.CSS := new RichEdit(this.Settings.BGColor, this.Settings.FGColor, "/* CSS */", this.Settings.TabSize)
-		this.Editors.JS := new RichEdit(this.Settings.BGColor, this.Settings.FGColor, "// JavaScript", this.Settings.TabSize)
-		this.Editors.AHK := new RichEdit(this.Settings.BGColor, this.Settings.FGColor, "; AHK", this.Settings.TabSize)
-		Gui, Font, % this.Settings.Font, % this.Settings.TypeFace
+		AHK := new RichCode(Settings.Clone())
+		CSS := new RichCode(Settings.Clone())
+		HTML := new RichCode(Settings.Clone())
+		JS := new RichCode(Settings.Clone())
+		
+		AHK.Settings.Highlighter := Func("HighlightAHK")
+		CSS.Settings.Highlighter := Func("HighlightCSS")
+		HTML.Settings.Highlighter := Func("HighlightHTML")
+		JS.Settings.Highlighter := Func("HighlightJS")
+		
+		AHK.Value := "; AHK"
+		CSS.Value := "/* CSS */"
+		HTML.Value := "<!-- HTML -->"
+		JS.Value := "// JavaScript"
+		
+		this.Editors := {"HTML": HTML, "CSS": CSS, "JS": JS, "AHK": AHK}
+		
 		
 		WinEvents.Register(this.hMainWindow, this)
 		
@@ -159,6 +191,10 @@ FromB64(ByRef Text)
 }
 
 #Include lib\AutoHotkey-JSON\Jxon.ahk
-#Include lib\RichEdit.ahk
+#Include lib\RichCode.ahk\RichCode.ahk
+#Include lib\RichCode.ahk\Highlighters\AHK.ahk
+#Include lib\RichCode.ahk\Highlighters\CSS.ahk
+#Include lib\RichCode.ahk\Highlighters\HTML.ahk
+#Include lib\RichCode.ahk\Highlighters\JS.ahk
 #Include lib\Util.ahk
 #Include lib\WinEvents.ahk
