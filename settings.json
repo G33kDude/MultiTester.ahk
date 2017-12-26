@@ -1,0 +1,92 @@
+{
+	"AHK": {
+        "TabSize": 4,
+		"Indent": "\t",
+		"FGColor": "0xF8F8F2",
+		"BGColor": "0x272822",
+		"Font": {"Typeface": "Consolas", "Size": 11},
+
+		"UseHighlighter": "True",
+		"HighlightDelay": 200,
+		"Colors": [
+			"0x75715E",
+			"0x75715E",
+			"0xF92672",
+			"0xF92672",
+			"0xAE81FF",
+			"0xE6DB74",
+			"0x66D9EF",
+			"0xF92672",
+			"0xF92672",
+			"0xA6E22E",
+			"0xFD971F",
+			"0xE4EDED"
+		]
+	},
+	"HTML": {
+        "TabSize": 4,
+		"Indent": "\t",
+		"FGColor": "0xF8F8F2",
+		"BGColor": "0x272822",
+		"Font": {"Typeface": "Consolas", "Size": 11},
+
+		"UseHighlighter": "True",
+		"HighlightDelay": 200,
+		"Colors": [
+			"",
+			"0x75715E",
+			"0xA6E22E",
+			"0xF8F8F2",
+			"0xAE81FF",
+			"0xE6DB74",
+			"0xAE81FF",
+			"",
+			"0xF92672"
+		]
+	},
+	"CSS": {
+        "TabSize": 4,
+		"Indent": "\t",
+		"FGColor": "0xF8F8F2",
+		"BGColor": "0x272822",
+		"Font": {"Typeface": "Consolas", "Size": 11},
+
+		"UseHighlighter": "True",
+		"HighlightDelay": 200,
+		"Colors": [
+			"",
+			"0x75715E",
+			"0xAE81FF",
+			"0xF8F8F2",
+			"0xAE81FF",
+			"0xE6DB74",
+			"0xA6E22E",
+			"0xF92672",
+			"0x66D9EF"
+		]
+	},
+	"JS": {
+        "TabSize": 4,
+		"Indent": "\t",
+		"FGColor": "0xF8F8F2",
+		"BGColor": "0x272822",
+		"Font": {"Typeface": "Consolas", "Size": 11},
+
+		"UseHighlighter": "True",
+		"HighlightDelay": 200,
+		"Colors": [
+			"0x75715E",
+			"0x75715E",
+			"0xA6E22E",
+			"0xF92672",
+			"0xAE81FF",
+			"0xE6DB74",
+			"0x66D9EF",
+			"0xF92672",
+			"0x66D9EF",
+			"0xA6E22E",
+			"0xFD971F",
+			"0x66D9EF"
+		]
+	}
+}
