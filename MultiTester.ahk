@@ -2,7 +2,7 @@
 SetBatchLines, -1
 
 ; Settings array for the RichCode controls
-Settings :=
+DefaultSettings :=
 ( LTrim Join Comments
 {
 	"TabSize": 4,
@@ -13,21 +13,58 @@ Settings :=
 	
 	"UseHighlighter": True,
 	"HighlightDelay": 200,
-	"Colors": [
-		; RRGGBB  ;    ; AHK
-		0x7F9F7F, ;  1 ; Comments
-		0x7F9F7F, ;  2 ; Multiline comments
-		0x7CC8CF, ;  3 ; Directives
-		0x97C0EB, ;  4 ; Punctuation
-		0xF79B57, ;  5 ; Numbers
-		0xCC9893, ;  6 ; Strings
-		0xF79B57, ;  7 ; A_Builtins
-		0xE4EDED, ;  8 ; Flow
-		0xCDBFA3, ;  9 ; Commands
-		0x7CC8CF, ; 10 ; Functions
-		0xCB8DD9, ; 11 ; Key names
-		0xE4EDED  ; 12 ; Other keywords
-	]
+	"Colors": {
+		"Comments":     0x7F9F7F,
+		"Functions":    0x7CC8CF,
+		"Keywords":     0xE4EDED,
+		"Multiline":    0x7F9F7F,
+		"Numbers":      0xF79B57,
+		"Punctuation":  0x97C0EB,
+		"Strings":      0xCC9893
+	}
+}
+)
+
+Settings :=
+( LTrim Join
+{
+	"AHK": {
+		"base": DefaultSettings,
+		"Highlighter": Func("HighlightAHK"),
+		"Colors": {
+			"A_Builtins": 0xF79B57,
+			"Commands":   0xCDBFA3,
+			"Directives": 0x7CC8CF,
+			"Flow":       0xE4EDED,
+			"KeyNames":   0xCB8DD9
+		}
+	},
+	"CSS": {
+		"base": DefaultSettings,
+		"Highlighter": Func("HighlightCSS"),
+		"Colors": {
+			"ColorCodes": 0x7CC8CF,
+			"Properties": 0xCDBFA3,
+			"Selectors":  0xE4EDED
+		}
+	},
+	"HTML": {
+		"base": DefaultSettings,
+		"Highlighter": Func("HighlightHTML"),
+		"Colors": {
+			"Attributes": 0x7CC8CF,
+			"Entities":   0xF79B57,
+			"Tags":       0xCDBFA3
+		}
+	},
+	"JS": {
+		"base": DefaultSettings,
+		"Highlighter": Func("HighlightJS"),
+		"Colors": {
+			"Constants":    0xF79B57,
+			"Declarations": 0xCDBFA3
+		}
+	}
 }
 )
 
@@ -41,7 +78,6 @@ class Editor
 	
 	__New(Settings)
 	{
-		this.Settings := Settings
 		Menus :=
 		( Join
 		[
@@ -61,15 +97,10 @@ class Editor
 		
 		
 		; Add code editors
-		AHK := new RichCode(Settings.Clone())
-		CSS := new RichCode(Settings.Clone())
-		HTML := new RichCode(Settings.Clone())
-		JS := new RichCode(Settings.Clone())
-		
-		AHK.Settings.Highlighter := Func("HighlightAHK")
-		CSS.Settings.Highlighter := Func("HighlightCSS")
-		HTML.Settings.Highlighter := Func("HighlightHTML")
-		JS.Settings.Highlighter := Func("HighlightJS")
+		AHK := new RichCode(Settings.AHK)
+		CSS := new RichCode(Settings.CSS)
+		HTML := new RichCode(Settings.HTML)
+		JS := new RichCode(Settings.JS)
 		
 		AHK.Value := "; AHK"
 		CSS.Value := "/* CSS */"
