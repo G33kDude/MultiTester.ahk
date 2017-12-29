@@ -61,6 +61,7 @@ Settings :=
 		"base": DefaultSettings,
 		"Highlighter": Func("HighlightJS"),
 		"Colors": {
+			"Builtins":     0xE4EDED,
 			"Constants":    0xF79B57,
 			"Declarations": 0xCDBFA3
 		}
